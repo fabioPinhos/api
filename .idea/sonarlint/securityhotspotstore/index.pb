@@ -33,3 +33,9 @@ Q.idea/sonarlint/securityhotspotstore/f/1/f1ac5467b3346f9b1d2b3be45c27831e00890f
 api/mvnw,e\d\ed1bfdb9dd1a0bb2dd77100407288940e9cf06ef
 Å
 Q.idea/sonarlint/securityhotspotstore/5/9/597c3b2c03ee8bbea7170d51b74d886398accbb2,7\e\7e55733a34d98ca3eb8fe8d1be24a74251593137
+v
+Fapi/src/main/java/com/eventostec/api/repositories/EventRepository.java,e\6\e63706c0407fc494c546ca0a3570a319aa0745da
+w
+Gapi/src/main/java/com/eventostec/api/repositories/CouponRepository.java,c\3\c327d86e783513a2cb5cff0dfb15b7af657f4828
+x
+Hapi/src/main/java/com/eventostec/api/repositories/AddressRepository.java,a\0\a0f09f4ff46fa8ea3c94c95de2d03af831e3ded0
