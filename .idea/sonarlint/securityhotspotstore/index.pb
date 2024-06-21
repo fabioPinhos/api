@@ -39,3 +39,9 @@ w
 Gapi/src/main/java/com/eventostec/api/repositories/CouponRepository.java,c\3\c327d86e783513a2cb5cff0dfb15b7af657f4828
 x
 Hapi/src/main/java/com/eventostec/api/repositories/AddressRepository.java,a\0\a0f09f4ff46fa8ea3c94c95de2d03af831e3ded0
+v
+Fapi/src/main/java/com/eventostec/api/domain/event/EventRequestDTO.java,2\e\2e20d7152a403ce4aceab6da2663d9342b52e138
+n
+>api/src/main/java/com/eventostec/api/service/EventService.java,c\2\c250041e26f95f9c90911c453b603b03cd7918f3
+j
+:api/src/main/java/com/eventostec/api/config/AWSConfig.java,e\6\e6f14c95d2d9fce8cf218d10654a8896bfd4ebbc
