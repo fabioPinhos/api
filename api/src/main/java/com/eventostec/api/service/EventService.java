@@ -1,21 +1,26 @@
 package com.eventostec.api.service;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.eventostec.api.domain.coupon.Coupon;
 import com.eventostec.api.domain.event.Event;
+import com.eventostec.api.domain.event.EventDetailsDTO;
 import com.eventostec.api.domain.event.EventRequestDTO;
+import com.eventostec.api.domain.event.EventResponseDTO;
+import com.eventostec.api.repositories.CouponRepository;
 import com.eventostec.api.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -28,6 +33,12 @@ public class EventService {
 
     @Autowired
     private EventRepository repository;
+
+    @Autowired
+    AddressService addressService;
+
+    @Autowired
+    CouponRepository couponRepository;
 
 
     public Event createEvent(EventRequestDTO dto){
@@ -46,6 +57,10 @@ public class EventService {
         newEvent.setRemote(dto.remote());
 
         repository.save(newEvent);
+
+        if (!dto.remote()){
+            addressService.createAddress(dto, newEvent);
+        }
 
         return newEvent;
     }
@@ -73,5 +88,81 @@ public class EventService {
         fos.write(multipartFile.getBytes());
         fos.close();
         return convFile;
+    }
+
+    public List <EventResponseDTO> getUpcomingEvents(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Event> eventsPage = repository.findUpcomingEvents(new Date(), pageable);
+        return eventsPage.map(events -> new EventResponseDTO(events.getId(),
+                events.getTitle(),
+                events.getDescription(),
+                events.getDate(),
+                events.getAddress() != null ? events.getAddress().getCity() : "",
+                events.getAddress() != null ? events.getAddress().getUf() : "",
+                events.getRemote(),
+                events.getEventUrl(),
+                events.getImgUrl())).stream().toList();
+    }
+
+    public List<EventResponseDTO> getFilteredEvents(int page, int size, String city, String uf, String title, Date startDate, Date endDate) {
+
+        city = (city != null) ? city : "";
+        uf = (uf != null) ? uf : "";
+        startDate = (startDate != null) ? startDate : new Date();
+        endDate = endDate != null ? endDate : addTenYears(new Date());
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Event> eventsPage = repository.findFilteredEvents(city, uf, startDate, endDate, pageable);
+
+        return eventsPage.map(events -> new EventResponseDTO(
+                events.getId(),
+                events.getTitle(),
+                events.getDescription(),
+                events.getDate(),
+                events.getAddress() != null ? events.getAddress().getCity() : "",
+                events.getAddress() != null ? events.getAddress().getUf() : "",
+                events.getRemote(),
+                events.getEventUrl(),
+                events.getImgUrl())).stream().toList();
+    }
+
+    private static Date addTenYears(Date dataTeste) {
+
+        // Obtenha uma instância do calendário
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dataTeste);
+
+        // Adicione 10 anos à data
+        cal.add(Calendar.YEAR, 10);
+
+        // Obtenha a nova data
+        return cal.getTime();
+    }
+
+    public EventDetailsDTO getEventDetails(UUID eventId) {
+
+        Event event = repository.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"));
+
+        List<Coupon> coupons = couponRepository.findByEventIdAndValidAfter(eventId, new Date());
+
+        List<EventDetailsDTO.CouponDTO> couponDTOs = coupons.stream()
+                .map(coupon -> new EventDetailsDTO.CouponDTO(
+                        coupon.getCode(),
+                        coupon.getDiscount(),
+                        coupon.getValid()))
+                .collect(Collectors.toList());
+
+        return new EventDetailsDTO(
+                event.getId(),
+                event.getTitle(),
+                event.getDescription(),
+                event.getDate(),
+                event.getAddress() != null ? event.getAddress().getCity() : "",
+                event.getAddress() != null ? event.getAddress().getUf() : "",
+                event.getImgUrl(),
+                event.getEventUrl(),
+                couponDTOs);
     }
 }
