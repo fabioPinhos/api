@@ -45,7 +45,8 @@ public class EventService {
         String imgUrl = null;
 
         if(dto.image() != null){
-            imgUrl = this.uploadImg(dto.image());
+//            imgUrl = this.uploadImg(dto.image());
+            imgUrl = "";
         }
 
         Event newEvent = new Event();
@@ -77,7 +78,7 @@ public class EventService {
 
             return s3client.getUrl(bucketName, filename).toString();
         }catch (Exception e){
-            System.out.println("erro ao subir arquivo");
+            System.out.println("erro ao subir arquivo :::" + e.getMessage());
             return "";
         }
     }
