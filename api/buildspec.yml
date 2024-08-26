@@ -3,13 +3,12 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR
+      - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 199299155478.dkr.ecr.us-east-2.amazonaws.com
-      - REPOSITORY_URI=199299155478.dkr.ecr.us-east-2.amazonaws.com/fabiopinho-ecs-api-java:latest
+      - REPOSITORY_URI=199299155478.dkr.ecr.us-east-2.amazonaws.com/fabiopinho-ecs-api-java
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2})
-   
+      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2})   
   build:
     commands:
       - echo Build started on 'date'
