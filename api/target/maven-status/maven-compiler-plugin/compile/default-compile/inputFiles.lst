@@ -1,0 +1,17 @@
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\ApiApplication.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\config\AWSConfig.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\controller\CouponController.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\controller\EventController.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\address\Address.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\coupon\Coupon.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\coupon\CouponRequestDTO.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\event\Event.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\event\EventDetailsDTO.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\event\EventRequestDTO.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\domain\event\EventResponseDTO.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\repositories\AddressRepository.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\repositories\CouponRepository.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\repositories\EventRepository.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\service\AddressService.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\service\CouponService.java
+C:\Users\FabioPinho\IdeaProjects\api\api\src\main\java\com\eventostec\api\service\EventService.java
