@@ -13,7 +13,8 @@ phases:
     commands:
       - echo Build started on 'date'
       - echo Building the Docker image...
-      - docker build -t fabiopinho-ecs-api-java .
+      - docker build -t fabiopinho-ecs-api-java . -f .\api_java.dockerfile
+
       - docker tag fabiopinho-ecs-api-java:latest 199299155478.dkr.ecr.us-east-2.amazonaws.com/fabiopinho-ecs-api-java:latest
   post_build:
     commands:
